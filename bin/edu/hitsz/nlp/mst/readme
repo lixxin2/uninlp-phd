@@ -1,0 +1,46 @@
+
+1. 
+默认为MST格式，
+java -Xmx4g -classpath "bin/:lib/trove-1.1b5.jar" 
+edu.hitsz.nlp.mst.DependencyParser 
+order:2
+train train-file:/home/tm/disk/disk1/joint/data/ctb5-train-dep-unlabelled-UTF-8-row 
+      model-name:/home/tm/disk/disk1/joint/data/ctb5-train-dep-unlabelled-UTF-8.model.ord1 
+test test-file:/home/tm/disk/disk1/joint/data/ctb5-dev-dep-unlabelled-UTF-8-row 
+      output-file:/home/tm/disk/disk1/joint/data/ctb5-train-dep-unlabelled-UTF-8.result 
+eval gold-file:/home/tm/disk/disk1/joint/data/ctb5-dev-dep-unlabelled-UTF-8-row
+
+2.
+ctb5 dep unlabelled
+
+order:1 
+num feats:2901938
+time: 500000ms / iter
+eval:
+
+dev
+EVALUATION PERFORMANCE:
+Tokens: 20454
+Correct: 16577
+Unlabeled Accuracy: 0.8104527231837293
+Unlabeled Complete Correct: 0.2777085927770859
+
+test
+EVALUATION PERFORMANCE:
+Tokens: 50279
+Correct: 40474
+Unlabeled Accuracy: 0.8049881660335328
+Unlabeled Complete Correct: 0.2566929133858268
+
+order:2
+dev:
+Tokens: 20454
+Correct: 16955
+Unlabeled Accuracy: 0.828933215996871
+Unlabeled Complete Correct: 0.3275217932752179
+
+test:
+Tokens: 50279
+Correct: 41594
+Unlabeled Accuracy: 0.8272638676186878
+Unlabeled Complete Correct: 0.32125984251968503

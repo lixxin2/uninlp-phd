@@ -1,0 +1,20 @@
+/**
+ * 
+ */
+package edu.hitsz.cs.ml.learning;
+
+/**
+ * @author tm
+ *
+ */
+public class MaximumEntropy {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

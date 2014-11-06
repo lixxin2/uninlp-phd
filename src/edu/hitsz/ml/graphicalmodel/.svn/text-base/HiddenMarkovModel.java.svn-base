@@ -1,0 +1,71 @@
+/**
+ * 
+ */
+package edu.hitsz.cs.ml.graphicalmodel;
+
+import java.util.HashMap;
+import java.util.Vector;
+
+import edu.hitsz.cs.nlp.struct.ConllFile;
+
+/**
+ * Hidden Markov Model (Rabiner, 1989)
+ * 
+ * @author tm
+ *
+ */
+public class HiddenMarkovModel {
+
+	String divideSymbol="|||";
+	String splitSymbol=",";
+	Vector<String> totalStates;
+	Vector<String> totalObservations;
+	Vector<Double> initialStateProb;
+	double[][] stateTransition;
+	double stateObservation;
+	
+	
+	public HiddenMarkovModel(){
+		
+	}
+	
+	public void addInstance(Vector<String> observations, Vector<String> states){
+		int stateNumber=states.size();
+		if(stateNumber!=observations.size()||stateNumber<1){
+			System.out.println("no input! Please check");
+		}
+		//check state 
+		for(String oneState : states){
+			if(!totalStates.contains(oneState)){
+				totalStates.add(oneState);
+				initialStateProb.add(0.0);
+			}
+		}
+		//initial state
+		int statePos=totalStates.indexOf(states.get(0));
+		double tmp=initialStateProb.get(statePos);
+		initialStateProb.add(tmp+1);
+		//state-transition
+		if(stateNumber>1)
+			for(int i=0;i<stateNumber-1;i++){
+				
+			}
+		
+	}
+	
+	public void readFromFile(String inputFileName){
+		ConllFile inputFile=new ConllFile();
+		inputFile.readTrainFile(inputFileName, 0);
+		
+	}
+	
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

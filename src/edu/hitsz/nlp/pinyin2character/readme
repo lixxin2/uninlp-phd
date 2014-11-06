@@ -1,0 +1,8 @@
+PyCharParser: 主程序
+
+
+
+rerank:
+rerankTrain: true rerankerTrainFile: options.mertCandTrainFile: mertDependencyTrainFile: options.rerankerModelFile:
+options.rerankDev:true  rerankerModelFile: mertCandTestFile: mertDependencyTestFile: rerankTestOutputFile:
+			

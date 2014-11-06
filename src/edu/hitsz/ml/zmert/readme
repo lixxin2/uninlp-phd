@@ -1,0 +1,79 @@
+
+所有文件解释：
+ZMERT_cfg.txt：起始配置文件
+ref： 参考文本，即结果文件，gold文件
+params.txt： 各个子模型及模型的初始权重
+SDecoder_cmd：目录和
+src.txt 源文件，只用于统计行数，表示实例数目
+SDecoder_cfg.txt：
+SimpleDecoder.java：
+
+1.
+使用fatjar打包好 的 
+mertCandFile:cand_database_pd_train1
+
+2.mert采用的是edu.hitsz.ml.zmert.ZMERT
+汉语拼音转字任务：加入了评价标准CHARACC.java
+语音识别任务：加入了评价标准MED.java
+tagging问题: 加入了评价标准TAGACC.java
+
+3.
+运行参数：/home/tm/disk/disk1/pinyin2character/mert/ZMERT_cfg.txt
+
+4. 
+首先修改ZMERT_cfg.txt的内容
+-dir	/home/tm/disk/disk1/pinyin2character/PD/mert                     # working directory (i.e. location of relevant files)
+-r	ref                     # target sentences file name (in this case, file name prefix)
+-rps	1                       # references per sentence
+-p	params.txt              # parameter file
+-m	CHARACC|MED          # evaluation metric and its options
+-maxIt	15                      # maximum MERT iterations
+-ipi	50                      # number of intermediate initial points per iteration
+-cmd	./SDecoder_cmd          # file containing commands to run decoder
+-decOut	nbest.out               # file prodcued by decoder
+-dcfg	SDecoder_cfg.txt        # decoder config file
+-N	20                      # size of N-best list generated each iteration
+-v	1                       # verbosity level (0-2; higher value => more verbose)
+-seed   12345678908 #12341234                # random number generator seed
+
+-dir:代码和数据的位置
+-r: ref 参考文本，即结果文件，比如正确的分词好的汉语句子
+-p：params.txt 各个子模型及模型的初始权重
+-m：评价标准，CHARACC|MED 
+-cmd: ./SDecoder_cmd 
+-dcfg	SDecoder_cfg.txt 同样设置模型个数和相应的初始概率，还需要修改候选文件的名称
+
+4.
+params.txt 设置模型个数和相应的初始概率
+
+5. 
+./SDecoder_cmd
+包括：
+cd /home/tm/disk/disk1/pinyin2character/PD/mert             //当前目录
+java SimpleDecoder SDecoder_cfg.txt src.txt nbest.out       //
+
+6.
+SimpleDecoder.java 设置numParams = 2;如果模型改变，还需要改变模型名字和相应的取值位置 
+javac SimpleDecoder.java
+python splitFeature.py 分割特征
+
+7.
+SDecoder_cfg.txt 同样设置模型个数和相应的初始概率，还需要修改候选文件的名称
+包括
+cands_file=cand_database_lcmcdev_0,1,2,3,4,5,6,7.txt //候选集
+cands_per_sen=500
+top_n=20
+
+LM 0.2
+charNgram 0.1
+charModel 0.1
+pinyinWordCo 0.1
+posModel 0.1
+posWordCo 0.1
+wordPosCo 0.1
+posNgram 0.1
+depModel 0.1
+
+
+
+

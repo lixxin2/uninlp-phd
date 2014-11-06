@@ -1,0 +1,35 @@
+
+
+主程序 SegPosParser:
+---------------------------------------------
+java -Xmx4g -cp uniml.jar edu.hitsz.nlp.segpos.Parser
+
+1. char:
+
+训练时用train,dev,eval;
+modelType:char charFeatureType:nglow train:true dev:true eval:true trainFile:ctb5-large-train-wp charModelFile:ctb5-large-train-wp-charModel latticeFile:lattice-file testFile:ctb5-dev-wp goldFile:ctb5-dev-wp outputFile:ctb5-dev-wp-result evalFile:ctb5-dev-wp-result-eval
+
+其他的参数
+inputFileType:row outputFileType:column trainReverse:false devReverse:false writeReverse:false
+
+oracle:
+oracle:true inputFileType:row charModelFile:/home/tm/disk/disk1/transDep/lattice/ctb5-charModel-r-6 goldFile:/home/tm/disk/disk1/transDep/lattice/ctb5-dev-parse-wp testFile:/home/tm/disk/disk1/transDep/lattice/ctb5-dev-parse-w oracleFile:/home/tm/disk/disk1/transDep/lattice/ctb5-dev-parse-w.oracle.2.r oracleK:2 devReverse:true
+
+2. word:
+
+train:
+modelType:word train:true dev:true eval:true trainFile:ctb5-large-train-wp wordModelFile:ctb5-large-train-wp-wordModel latticeFile:lattice-file testFile:ctb5-dev-wp goldFile:ctb5-dev-wp outputFile:ctb5-dev-wp-result evalFile:ctb5-dev-wp-result-eval
+
+
+single model evaluation:
+modelType:word test:true wordModelFile:large-charModel testFile:test-wp outputFile:test-result
+
+single result test:
+modelType:word eval:true trainFile:large-train-wp goldFile:test-wp outputFile:test-result evalFile:test-eval
+
+3. joint:
+modelType:joint charFeatureType:nglow dev:true eval:true goldFile:test-wp charModelFile:nglow-40000-charModel-4 wordModelFile:large-5-80000-word.model-4 outputFile:test-result evalFile:test-eval
+
+
+
+Word2Char:

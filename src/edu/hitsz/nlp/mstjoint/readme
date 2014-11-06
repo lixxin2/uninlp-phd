@@ -1,0 +1,36 @@
+
+1. 非joint
+
+java -Xmx4g -classpath "bin/:lib/trove-1.1b5.jar" 
+edu.hitsz.nlp.mstjoint.DependencyParserJoint 
+order 2
+train train-file:/home/tm/disk/disk1/joint/data/ctb5-train-dep-unlabelled-UTF-8-row 
+      train-forest:/home/tm/disk/disk1/joint/data/ctb5-train-dep-unlabelled-UTF-8-row.forest 
+      model-name:/home/tm/disk/disk1/joint/data/ctb5-train-dep-unlabelled-UTF-8.model.ord1.ap 
+test test-file:/home/tm/disk/disk1/joint/data/ctb5-dev-dep-unlabelled-UTF-8-row 
+      output-file:/home/tm/disk/disk1/joint/data/ctb5-train-dep-unlabelled-UTF-8.result.ap 
+eval gold-file:/home/tm/disk/disk1/joint/data/ctb5-dev-dep-unlabelled-UTF-8-row
+
+ord1:
+dev:
+Tokens: 20454
+Correct: 16362
+Unlabeled Accuracy: 0.7999413317688472
+Unlabeled Complete Correct: 0.2627646326276463
+The program runs in 34196600s.
+
+test:
+Tokens: 50279
+Correct: 39979
+Unlabeled Accuracy: 0.7951431014936653
+Unlabeled Complete Correct: 0.25774278215223095
+
+
+
+
+
+
+
+
+2. joint
+

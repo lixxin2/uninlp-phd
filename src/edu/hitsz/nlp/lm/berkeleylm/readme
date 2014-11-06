@@ -1,0 +1,7 @@
+
+
+1. arpa文件到berkeley bin文件 
+MakeLmBinaryFromArpa.java
+-Xmx2500m arpa.file bin.file
+
+2. 

@@ -1,0 +1,105 @@
+10
+
+dir
+0
+https://uni-ml-nlp.googlecode.com/svn/trunk/uniml/src/edu/hitsz/nlp/segpos
+https://uni-ml-nlp.googlecode.com/svn
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3a44e649-d1f2-3f39-4b8f-4a67a64b4a7b
+
+BasicWordPos.java
+file
+
+
+
+add
+
+SegPosFile.java
+file
+
+
+
+add
+
+SegPosWordRun.java
+file
+
+
+
+add
+
+SegPosCharAndWordInstance.java
+file
+
+
+
+add
+
+SegPosCharRun.java
+file
+
+
+
+add
+
+SegPosSentence.java
+file
+
+
+
+add
+
+SegPosOracle.java
+file
+
+
+
+add
+
+SegPosWord.java
+file
+
+
+
+add
+
+readme
+file
+
+
+
+add
+
+SegPosCharAndWord.java
+file
+
+
+
+add
+
+SegPosChar.java
+file
+
+
+
+add
+

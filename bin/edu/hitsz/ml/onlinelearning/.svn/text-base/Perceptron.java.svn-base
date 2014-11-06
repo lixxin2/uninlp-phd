@@ -1,0 +1,186 @@
+/**
+ * 
+ */
+package edu.hitsz.cs.ml.onlinelearning;
+
+/**
+ * @author tm
+ *
+ */
+public class Perceptron {
+	//
+	public int iterNum=5;
+	public double errorRate=1e-5;
+	public double step=0.1;
+	public int weightLen=2;
+	public double[] weights;
+	public double[][] xEtra;
+	public int dataNum=1;
+	
+	
+	
+	public Perceptron(){
+		
+	}
+	
+	public void setIter(int inputIter){
+		iterNum=inputIter;
+	}
+	
+	public void setError(int inputError){
+		errorRate=inputError;
+	}
+	
+	public void initWeights(int x2Len){
+		weightLen=x2Len;
+		weights=new double[weightLen];
+		for( int i=0;i<weightLen;i++){
+			//weights[i]=Math.random();
+			weights[i]=1;
+		}
+		printWeights();
+	}
+	
+	/*
+	 * ��ʼ��Ȩֵ
+	 */
+	public void initWeights(double [] inputweights){
+		weightLen=inputweights.length;
+		weights=new double[weightLen];
+		for( int i=0;i<weightLen;i++){
+			weights[i]=inputweights[i];
+		}
+		printWeights();
+	}
+	
+	public void printWeights(){
+		System.out.println("weights");
+		for( int i=0;i<weightLen;i++){
+			System.out.println(weights[i]);
+		}
+	}
+	
+	public int compPreC(double [] x){
+		double pre=0;
+		int xLen=x.length;
+		for(int i=0; i< xLen; i++)
+			pre+=x[i]*weights[i];
+		if(pre>=0)
+			return 1;
+		else
+			return -1;
+	}
+	
+	public double compPreR(double [] x){
+		double pre=0;
+		int xLen=x.length;
+		for(int i=0; i< xLen; i++)
+			pre+=x[i]*weights[i];
+		return pre;
+	}
+	
+	/*
+	 * ��Է��������ѵ��
+	 */
+	public boolean trainC(double [] x, int y) {
+		int xLen=x.length;
+		double pre=compPreC(x);
+		if(Math.abs(y-pre)>errorRate){
+			for(int i=0;i<xLen;i++){
+				weights[i]=weights[i]+step*y*x[i];
+			}
+			return false;
+		}
+		else return true;
+	}
+	
+	/*
+	 * ��Իع������ѵ��
+	 */
+	public boolean trainR(double [] x, double y) {
+		int xLen=x.length;
+		double pre=compPreR(x);
+		if(Math.abs(y-pre)>errorRate){
+			for(int i=0;i<xLen;i++){
+				weights[i]=weights[i]+step*(y-pre)*x[i];
+			}
+			return false;
+		}
+		else return true;
+	}
+
+	/*
+	 * ѵ������
+	 * stop��ʾѵ��ֹͣԭ��1��ʾ��ݵ�����0��ʾ���������ɹ�
+	 */
+	public void trainC(double [][] x,int[] y){
+		x2Etra(x);
+		int xLen=xEtra.length;
+		int x2Len=xEtra[0].length;
+		if(y.length!=xLen){
+			System.out.println("Number of Input and Output of the Perceptron are different!\nPlease check it out.");
+		}
+		initWeights(x2Len);
+		boolean allRight=true;
+		for(int i=0; i<iterNum; i++){
+			for(int j=0; j<xLen; j++){				
+					if(!trainC(xEtra[j],y[j])){
+						allRight=false;	
+						printWeights();
+					}								
+				}
+			if(allRight)
+				break;
+			}
+		}
+	
+	/*
+	 * ���������ѵ����ݣ�����bias
+	 */
+	public void x2Etra(double [][]x){
+		int xLen=x.length;
+		System.out.println("xLen:"+Integer.toString(xLen));
+		if(xLen>=1){
+			int x2Len=x[0].length+1;
+			System.out.println("x2Len:"+Integer.toString(x2Len));
+			xEtra=new double[xLen][x2Len];
+			for(int i=0;i<xLen;i++){
+				for(int j=0;j<x2Len-1;j++){
+					xEtra[i][j]=x[i][j];			
+				}
+				xEtra[i][x2Len-1]=1;				
+			}
+			for(int i=0;i<xLen;i++){
+				for(int j=0;j<x2Len;j++){
+					System.out.println(xEtra[i][j]);
+					}
+			}
+		}
+	}
+		
+	/*
+	 * ���Ժ���
+	 */
+	public int[] predictC(double [][]x){
+		x2Etra(x);
+		int xLen=xEtra.length;
+		int[] y=new int[xLen];
+		for(int i=0;i<xLen;i++){
+			y[i]=compPreC(xEtra[i]);
+		}
+		return y;				
+	}
+	
+	public static void main(String[] args){
+		double[][] x={{0,1},{1,0},{0,2},{2,0}};
+		int[] y={-1,1,-1,1};
+		Perceptron ap=new Perceptron();
+		ap.trainC(x,y);
+		ap.printWeights();
+		int xLen=x.length;
+		int[] z=ap.predictC(x);
+		for(int i=0;i<xLen;i++)
+			System.out.println(z[i]);
+		
+	}
+}

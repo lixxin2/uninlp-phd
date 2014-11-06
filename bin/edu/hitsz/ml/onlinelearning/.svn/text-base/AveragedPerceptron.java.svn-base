@@ -1,0 +1,189 @@
+/**
+ * 
+ */
+package edu.hitsz.cs.ml.onlinelearning;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Vector;
+
+
+/**
+ * @author tm
+ *
+ */
+public class AveragedPerceptron {
+	
+	//
+	public class Weights{
+		public double singleWeights;
+		public double allWeights;
+		public int start;
+	}
+	public int iterNum=5;
+	public double errorRate=1e-5;
+	public double step=0.1;
+	public HashMap<String, Weights> allFeatures;
+	public int initialWeight=0;
+	public int dataNum=1;
+	
+	public AveragedPerceptron(){
+		allFeatures=new HashMap<String, Weights>();
+	}
+	
+	public void setIter(int inputIter){
+		iterNum=inputIter;
+	}
+	
+	public void setError(int inputError){
+		errorRate=inputError;
+	}
+
+	
+	/**
+	 * ����������Ȩֵ
+	 * @param senFeature ��i������������������Ȩֵ
+	 * @param sentenceNum �����ܸ���
+	 * @param ith ��i������
+	 */
+	public void update(HashMap<String, Integer> senFeature, int sentenceNum, int ith){
+		Iterator iter = senFeature.entrySet().iterator(); 
+		while (iter.hasNext()) { 
+		    Map.Entry entry = (Map.Entry) iter.next(); 
+		    String feature = (String) entry.getKey(); 
+		    int num = (Integer)entry.getValue();
+		    //���������
+		    if(allFeatures.containsKey(feature)){
+				Weights newWeights=allFeatures.get(feature);				
+				double tmpWeight=newWeights.singleWeights;
+				newWeights.singleWeights=tmpWeight+num;
+				newWeights.allWeights=newWeights.allWeights+(ith-newWeights.start)*tmpWeight+num;
+				newWeights.start=ith;
+				allFeatures.put(feature, newWeights);				
+			}
+		    else{
+		    	Weights newWeights=new Weights();
+				newWeights.singleWeights=num;
+				newWeights.allWeights=num;
+				newWeights.start=ith;
+				allFeatures.put(feature,newWeights);
+		    }
+		}
+		if(ith+1==sentenceNum){
+			iter = allFeatures.entrySet().iterator(); 
+			while (iter.hasNext()) { 
+			    Map.Entry entry = (Map.Entry) iter.next(); 
+			    String feature = (String) entry.getKey(); 
+			    Weights newWeights = (Weights) entry.getValue(); 
+			    double tmpWeight=newWeights.singleWeights;
+			    newWeights.allWeights=newWeights.allWeights+(ith-newWeights.start)*tmpWeight;
+			    newWeights.start=-1;
+			    allFeatures.put(feature, newWeights);
+			}
+		}		
+	}
+	
+	
+	/**
+	 * ��ȡ�ļ��õ����е�Ȩ��
+	 * @param fileName
+	 */
+	public void readWeights(String fileName){
+		allFeatures.clear();
+		File file = new File(fileName);
+		BufferedReader reader = null;
+		try{
+			reader = new BufferedReader(new FileReader(file));
+			System.out.println("\nOpening Weight file ...");			
+			String tempString=null;
+			try{
+				//��ȡ�ļ���ֱ���ļ�ĩβ
+				while ((tempString = reader.readLine())!= null){
+					if (!(tempString.trim().equals(""))&&(tempString!=null)){						
+						String[] singleString=tempString.split("\t");
+						Weights newWeight=new Weights();
+						newWeight.singleWeights=Double.parseDouble(singleString[1]);
+						newWeight.allWeights=Double.parseDouble(singleString[2]);
+						allFeatures.put(singleString[0],newWeight);
+					}
+				}
+				System.out.println("There are totally "+allFeatures.size()+" features.");
+				System.out.println("Read Weight file successed.");
+				try {
+					reader.close();
+					} 
+				catch (IOException e) {
+					e.printStackTrace();
+					}
+				}
+			catch (FileNotFoundException e) {
+				System.err.println(e);
+				}
+			}
+		catch (IOException e){
+			System.out.println("IOException: " + e);
+			}
+	}
+	
+	/**
+	 * �洢���е�Ȩ�ص��ļ���
+	 * @param fileName
+	 * @param iterNum ������
+	 * @param sentenceNum ���Ӹ���
+	 */
+	public void storeWeights(String fileName, int iterNum, int sentenceNum){
+		try{
+			FileWriter outFileWriter=new FileWriter(fileName);
+			Iterator iter = allFeatures.entrySet().iterator(); 
+			while (iter.hasNext()) { 
+			    Map.Entry entry = (Map.Entry) iter.next(); 
+			    String feature = (String) entry.getKey(); 
+			    Weights newWeights = (Weights) entry.getValue();
+			    outFileWriter.write(feature+"\t"+newWeights.singleWeights+"\t"+newWeights.allWeights/(iterNum*sentenceNum)+"\n");
+			} 			
+			outFileWriter.close();
+			System.out.println("\nStore "+Integer.toString(iterNum)+"th feature file done!");			
+		}catch (IOException e){
+			System.out.println("IOException: " + e);
+		}
+	}
+	
+	
+	public double compSingleWeights(Vector<String> oneFeature, String tag){
+		double tmpWeight=0;
+		for(int o=0;o<oneFeature.size();o++){
+			//add every feature with its corresponding tag
+			String one=oneFeature.get(o)+"+"+tag;
+			if(allFeatures.containsKey(one)){
+				tmpWeight+=allFeatures.get(one).singleWeights;
+			}
+		}
+		return tmpWeight;
+	}
+	
+	public double compAllWeights(Vector<String> oneFeature, String tag){
+		double tmpWeight=0;
+		for(int o=0;o<oneFeature.size();o++){
+			//add every feature with its corresponding tag
+			String one=oneFeature.get(o)+"+"+tag;
+			if(allFeatures.containsKey(one)){
+				tmpWeight+=allFeatures.get(one).allWeights;
+			}
+		}
+		return tmpWeight;
+	}
+	
+
+
+	public static void main(String[] args){
+		
+	
+	}
+}

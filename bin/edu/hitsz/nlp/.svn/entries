@@ -1,0 +1,149 @@
+10
+
+dir
+0
+https://uni-ml-nlp.googlecode.com/svn/trunk/uniml/src/edu/hitsz/nlp
+https://uni-ml-nlp.googlecode.com/svn
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3a44e649-d1f2-3f39-4b8f-4a67a64b4a7b
+
+sentencesegmentation
+dir
+
+
+
+add
+
+language
+dir
+
+
+
+add
+
+partofspeech
+dir
+
+
+
+add
+
+stemming
+dir
+
+
+
+add
+
+ner
+dir
+
+
+
+add
+
+struct
+dir
+
+
+
+add
+
+poschunk
+dir
+
+
+
+add
+
+segmentation
+dir
+
+
+
+add
+
+segpos
+dir
+
+
+
+add
+
+pos
+dir
+
+
+
+add
+
+chunking
+dir
+
+
+
+add
+
+evaluation
+dir
+
+
+
+add
+
+corpus
+dir
+
+
+
+add
+
+util
+dir
+
+
+
+add
+
+eisnerdep
+dir
+
+
+
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+copied
+https://uni-ml-nlp.googlecode.com/svn/trunk/uniml/src/edu/hitsz/cs/nlp/parser
+3
+
