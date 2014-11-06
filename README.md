@@ -1,6 +1,6 @@
 uniml
 ====
-Chinese Pinyin-to-Character Conversion: 
+Chinese Pinyin-to-Character Conversion
 edu.hitsz.nlp.segpos.pinyin2character.Py2CharParser
 
 Chinese word Segmentor: 
