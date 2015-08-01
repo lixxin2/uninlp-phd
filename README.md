@@ -1,5 +1,10 @@
 uniml
 ====
+
+Notice: This code is no longer maintained.
+
+Usage:
+
 Chinese Pinyin-to-Character Conversion: 
 edu.hitsz.nlp.segpos.pinyin2character.Py2CharParser
 
