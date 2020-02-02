@@ -1,7 +1,7 @@
 uninlp-phd
 ====
 
-Notice: This code is no longer maintained.
+Warning: This code is no longer maintained.
 
 Usage:
 
